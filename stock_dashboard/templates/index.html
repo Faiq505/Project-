@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Stock Price Analysis Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <div class="logo">📈 StockDash</div>
+        <div class="tagline">Stock Price Analysis Dashboard</div>
+        <div id="clock" class="clock"></div>
+    </div>
+</header>
+
+<!-- SEARCH BAR -->
+<section class="search-section">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Enter stock symbol (e.g. AAPL, TSLA, MSFT)" autocomplete="off"/>
+        <button onclick="searchStock()">Search</button>
+    </div>
+    <div class="quick-picks">
+        <span>Quick:</span>
+        <button class="quick-btn" onclick="loadStock('AAPL')">AAPL</button>
+        <button class="quick-btn" onclick="loadStock('TSLA')">TSLA</button>
+        <button class="quick-btn" onclick="loadStock('MSFT')">MSFT</button>
+        <button class="quick-btn" onclick="loadStock('GOOGL')">GOOGL</button>
+        <button class="quick-btn" onclick="loadStock('AMZN')">AMZN</button>
+    </div>
+</section>
+
+<!-- STOCK CARD -->
+<section class="stock-card-section" id="stockCardSection" style="display:none">
+    <div class="stock-card" id="stockCard">
+        <div class="stock-header">
+            <div>
+                <div class="stock-symbol" id="cardSymbol">--</div>
+                <div class="stock-name" id="cardName">--</div>
+            </div>
+            <div class="stock-price-block">
+                <div class="stock-price" id="cardPrice">--</div>
+                <div class="stock-change" id="cardChange">--</div>
+            </div>
+        </div>
+        <div class="stock-meta">
+            <div class="meta-item"><span>Prev Close</span><b id="metaPrev">--</b></div>
+            <div class="meta-item"><span>Currency</span><b id="metaCurrency">--</b></div>
+            <div class="meta-item"><span>Market</span><b id="metaMarket">--</b></div>
+        </div>
+    </div>
+</section>
+
+<!-- CHART -->
+<section class="chart-section" id="chartSection" style="display:none">
+    <div class="chart-card">
+        <div class="chart-title" id="chartTitle">Price History (1 Month)</div>
+        <canvas id="priceChart" height="100"></canvas>
+    </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare-section">
+    <h2 class="section-title">📊 Compare Stocks</h2>
+    <div class="compare-inputs">
+        <input type="text" id="cmp1" placeholder="Symbol 1 (e.g. AAPL)" maxlength="10"/>
+        <input type="text" id="cmp2" placeholder="Symbol 2 (e.g. TSLA)" maxlength="10"/>
+        <input type="text" id="cmp3" placeholder="Symbol 3 (optional)" maxlength="10"/>
+        <input type="text" id="cmp4" placeholder="Symbol 4 (optional)" maxlength="10"/>
+        <button onclick="compareStocks()">Compare</button>
+    </div>
+    <div id="compareResult" class="compare-result"></div>
+    <div class="chart-card" id="compareChartCard" style="display:none">
+        <div class="chart-title">Comparison Chart</div>
+        <canvas id="compareChart" height="100"></canvas>
+    </div>
+</section>
+
+<!-- TRENDING -->
+<section class="trending-section">
+    <h2 class="section-title">🔥 Trending Stocks</h2>
+    <div id="trendingList" class="trending-list">
+        <div class="loading">Loading trending stocks...</div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>Stock Price Analysis Dashboard &mdash; OSSD Project &mdash; Fayeeque Haider (F2024105059)</p>
+    <p class="disclaimer">Data provided by Yahoo Finance. For educational purposes only. Not financial advice.</p>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
